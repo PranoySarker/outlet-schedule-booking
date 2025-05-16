@@ -1,9 +1,10 @@
 "use client";
 
-import { registerUser } from "@/redux/features/authSlice";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
+import { registerUser } from "@/redux/features/actions/registerUser";
 import toast from "react-hot-toast";
+import Link from "next/link";
 
 const RegistrationForm = () => {
   const dispatch = useDispatch();
@@ -184,7 +185,7 @@ const RegistrationForm = () => {
           <span className="block w-36 mx-auto rounded-md shadow-sm">
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-500 focus:outline-none focus:border-pink-700 focus:shadow-outline-pink active:bg-pink-700 transition duration-150 ease-in-out"
             >
               Sign Up
             </button>
@@ -192,7 +193,10 @@ const RegistrationForm = () => {
         </div>
         <div className="my-2">
           <p className="text-center">
-            Have any account? <span className="text-pink-600">Login</span>
+            Have any account?{" "}
+            <Link href="/login" className="text-pink-600">
+              Login
+            </Link>
           </p>
         </div>
       </form>

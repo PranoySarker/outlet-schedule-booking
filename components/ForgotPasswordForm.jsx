@@ -1,36 +1,12 @@
-"use client";
-
-import { loginUser } from "@/redux/features/actions/loginUser";
-import Link from "next/link";
 import React from "react";
 import { useForm } from "react-hook-form";
-import toast from "react-hot-toast";
-import { useDispatch } from "react-redux";
 
-const LoginForm = () => {
-  const dispatch = useDispatch();
+const ForgotPasswordForm = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
-
-  const onSubmit = async (fromData) => {
-    const data = {
-      email: fromData.email,
-      password: fromData.password,
-      isSocial: false,
-      fcmToken: null,
-    };
-    const result = await dispatch(loginUser(data));
-
-    if (loginUser.fulfilled.match(result)) {
-      toast.success("User logged in successfully!");
-    } else {
-      toast.error(result.payload || "Login failed!");
-    }
-  };
-
   return (
     <div className="min-h-screen w-1/2 mx-auto bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8 border border-gray-200 shadow-md m-4">
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-4 mb-5">
@@ -111,23 +87,15 @@ const LoginForm = () => {
           <span className="block w-36 mx-auto rounded-md shadow-sm">
             <button
               type="submit"
-              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
+              className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-lg text-white bg-pink-600 hover:bg-pink-500 focus:outline-none focus:border-pink-700 focus:shadow-outline-pink active:bg-pink-700 transition duration-150 ease-in-out"
             >
-              Sign In
+              Send Code
             </button>
           </span>
-        </div>
-        <div className="my-2">
-          <p className="text-center">
-            Create account{" "}
-            <Link href="/register" className="text-pink-600">
-              Sign Up
-            </Link>
-          </p>
         </div>
       </form>
     </div>
   );
 };
 
-export default LoginForm;
+export default ForgotPasswordForm;
