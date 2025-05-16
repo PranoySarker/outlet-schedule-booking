@@ -1,42 +1,6 @@
-"use client";
+import React from "react";
 
-import { registerUser } from "@/redux/features/authSlice";
-import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
-import toast from "react-hot-toast";
-
-const RegistrationForm = () => {
-  const dispatch = useDispatch();
-  const {
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    formState: { errors },
-  } = useForm();
-
-  const password = watch("password");
-
-  const onSubmit = async (fromData) => {
-    const data = {
-      fullName: fromData.name,
-      email: fromData.email,
-      phone: fromData.phone,
-      password: fromData.password,
-      referralCode: null,
-      isSocial: false,
-      fcmToken: null,
-    };
-
-    const result = await dispatch(registerUser(data));
-
-    if (registerUser.fulfilled.match(result)) {
-      toast.success("User created successfully!");
-      reset();
-    } else {
-      toast.error(result.payload || "Registration failed!");
-    }
-  };
+const LoginForm = () => {
   return (
     <div className="min-h-screen w-1/2 mx-auto bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8 border border-gray-200 shadow-md m-4">
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-4 mb-5">
@@ -200,4 +164,4 @@ const RegistrationForm = () => {
   );
 };
 
-export default RegistrationForm;
+export default LoginForm;
