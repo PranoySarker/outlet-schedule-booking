@@ -1,21 +1,38 @@
+"use client";
+
+import { sendOtp } from "@/redux/features/actions/sendOtp";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
 const ForgotPasswordForm = () => {
+  const router = useRouter();
+  const dispatch = useDispatch();
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm();
+
+  const onSubmit = async (data) => {
+    const result = await dispatch(sendOtp(data));
+
+    if (sendOtp.fulfilled.match(result)) {
+      toast.success("OTP sent to email");
+      router.push("/verify-code");
+    } else {
+      toast.error("OTP sending failed!");
+    }
+  };
+
   return (
-    <div className="min-h-screen w-1/2 mx-auto bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8 border border-gray-200 shadow-md m-4">
+    <div className="min-h-96 w-1/2 mx-auto bg-gray-50 flex flex-col justify-center sm:px-6 lg:px-8 border border-gray-200 shadow-md m-4">
       <div className="sm:mx-auto sm:w-full sm:max-w-md space-y-4 mb-5">
         <h2 className="mt-3 text-center text-xl  font-bold text-gray-900">
-          Log in to your account
+          Forgot Password?
         </h2>
-        <p className="text-center text-md text-gray-500 font-semibold">
-          Please enter your email and password to continue
-        </p>
       </div>
 
       <form onSubmit={handleSubmit(onSubmit)}>
@@ -24,7 +41,7 @@ const ForgotPasswordForm = () => {
             htmlFor="email"
             className="block text-sm font-medium leading-5 text-gray-700"
           >
-            Email address
+            Email
           </label>
           <div className="mt-1 relative rounded-md shadow-sm">
             <input
@@ -40,47 +57,6 @@ const ForgotPasswordForm = () => {
           {errors.email && (
             <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
           )}
-        </div>
-
-        <div className="mt-6">
-          <label
-            htmlFor="password"
-            className="block text-sm font-medium leading-5 text-gray-700"
-          >
-            Password
-          </label>
-          <div className="mt-1 rounded-md shadow-sm">
-            <input
-              {...register("password", {
-                required: "Password is required",
-                minLength: {
-                  value: 8,
-                  message: "Password must be at least 8 characters",
-                },
-              })}
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Enter your password"
-              required=""
-              className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-            />
-            {errors.password && (
-              <p className="text-red-500 text-xs mt-1">
-                {errors.password.message}
-              </p>
-            )}
-          </div>
-        </div>
-
-        <div className="flex items-center justify-between">
-          <div>
-            <input type="checkbox" id="remember" name="remember" value="true" />
-            <label htmlFor="remember"> Remember Password</label>
-          </div>
-          <Link href="/forgot-password" className="text-orange-600">
-            Forgot Password?
-          </Link>
         </div>
 
         <div className="mt-6">
