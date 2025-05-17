@@ -5,8 +5,11 @@ import { useForm, Controller } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import toast from "react-hot-toast";
 import { verifyOtp } from "@/redux/features/actions/verifyOtp";
+import { useRouter } from "next/navigation";
+import { resendCode } from "@/redux/features/actions/resendCode";
 
 const VerifyCodeForm = () => {
+  const router = useRouter();
   const dispatch = useDispatch();
   const { email } = useSelector((state) => state.auth);
 
@@ -28,7 +31,7 @@ const VerifyCodeForm = () => {
       toast.success("OTP verified successfully");
       router.push("/reset-password");
     } else {
-      toast.error(result.payload || "OTP verification failed!");
+      toast.error("OTP verification failed!");
     }
   };
 
@@ -40,6 +43,16 @@ const VerifyCodeForm = () => {
 
     if (value && e.target.nextSibling) {
       e.target.nextSibling.focus();
+    }
+  };
+
+  const handleClick = async () => {
+    const result = await dispatch(resendCode({ email }));
+
+    if (resendCode.fulfilled.match(result)) {
+      toast.success("OTP Resent to email");
+    } else {
+      toast.error(result.payload || "OTP sending failed!");
     }
   };
 
@@ -89,7 +102,11 @@ const VerifyCodeForm = () => {
           </button>
           <p className="text-sm text-gray-700 ml-4">
             You haven't received the email?{" "}
-            <button className="text-pink-600 underline" type="button">
+            <button
+              onClick={handleClick}
+              className="text-pink-600 underline cursor-pointer"
+              type="button"
+            >
               Resend
             </button>
           </p>

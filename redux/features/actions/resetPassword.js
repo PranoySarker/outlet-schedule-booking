@@ -1,25 +1,23 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
+const { createAsyncThunk } = require("@reduxjs/toolkit");
 
 const BASE_URL = "http://51.20.49.136:5000/v1/";
 
-export const verifyOtp = createAsyncThunk(
-  "user/verifyOtp",
-  async ({ email, otp }, thunkApi) => {
+export const resetPassword = createAsyncThunk(
+  "user/resetPassword",
+  async (FormData, thunkApi) => {
     try {
-      const res = await fetch(`${BASE_URL}auth/verify-otp`, {
+      const res = await fetch(`${BASE_URL}auth/reset-password`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ email, otp }),
+        body: JSON.stringify(FormData),
       });
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(`Failed (${res.status}): ${errorText}`);
       }
-      const data = await res.json();
-
-      return { email, data };
+      return await res.json();
     } catch (error) {
       return thunkApi.rejectWithValue(error.message);
     }

@@ -3,6 +3,8 @@ import { registerUser } from "./actions/registerUser";
 import { loginUser } from "./actions/loginUser";
 import { sendOtp } from "./actions/sendOtp";
 import { verifyOtp } from "./actions/verifyOtp";
+import { resendCode } from "./actions/resendCode";
+import { resetPassword } from "./actions/resetPassword";
 
 const authSlice = createSlice({
   name: "auth",
@@ -39,6 +41,9 @@ const authSlice = createSlice({
     addAsyncCases(registerUser);
     addAsyncCases(loginUser);
     addAsyncCases(sendOtp);
+    addAsyncCases(verifyOtp);
+    addAsyncCases(resendCode);
+    addAsyncCases(resetPassword);
   },
 });
 

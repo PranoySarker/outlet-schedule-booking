@@ -16,13 +16,11 @@ export const sendOtp = createAsyncThunk(
       });
       if (!res.ok) {
         const errorText = await res.text();
-        console.error("OTP Server error:", errorText);
         throw new Error(`Failed (${res.status}): ${errorText}`);
       }
       const data = await res.json();
       return { email, data };
     } catch (error) {
-      console.error("OTP Request failed:", error.message);
       return thunkApi.rejectWithValue(error.message);
     }
   }
