@@ -1,12 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "/api/proxy/";
-
 export const registerUser = createAsyncThunk(
   "user/register",
   async (formData, thunkApi) => {
     try {
-      const res = await fetch(`${BASE_URL}user/create`, {
+      const res = await fetch("/api/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -7,7 +7,7 @@ export const sendOtp = createAsyncThunk(
   async (formData, thunkApi) => {
     try {
       const email = formData.email;
-      const res = await fetch(`${BASE_URL}auth/forget-password/send-otp`, {
+      const res = await fetch("api/auth/send-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

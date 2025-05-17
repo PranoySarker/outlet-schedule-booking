@@ -6,16 +6,13 @@ export const resendCode = createAsyncThunk(
   "user/resendCode",
   async ({ email }, thunkApi) => {
     try {
-      const res = await fetch(
-        `${BASE_URL}user/auth/email-verification/resend-code`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json",
-          },
-          body: JSON.stringify({ email }),
-        }
-      );
+      const res = await fetch("api/auth/resend-code", {
+        method: "POST",
+        headers: {
+          "content-type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
       if (!res.ok) {
         const errorText = await res.text();
         throw new Error(`Failed (${res.status}): ${errorText}`);

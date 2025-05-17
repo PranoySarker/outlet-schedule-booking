@@ -6,7 +6,7 @@ export const loginAdmin = createAsyncThunk(
   "admin/login",
   async (formData, thunkApi) => {
     try {
-      const res = await fetch(`${BASE_URL}auth/admin/login`, {
+      const res = await fetch("api/auth/admin/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

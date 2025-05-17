@@ -1,25 +1,23 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "/api/proxy/";
-
 export const loginUser = createAsyncThunk(
-  "user/login",
-  async (formData, thunkApi) => {
+  "auth/login",
+  async (formData, thunkAPI) => {
     try {
-      const res = await fetch(`${BASE_URL}auth/login`, {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
+
       if (!res.ok) {
-        const errorText = await res.text();
-        throw new Error(`Failed (${res.status}): ${errorText}`);
+        const errText = await res.text();
+        throw new Error(`(${res.status}) ${errText}`);
       }
+
       return await res.json();
-    } catch (error) {
-      return thunkApi.rejectWithValue(error.message);
+    } catch (err) {
+      return thunkAPI.rejectWithValue(err.message);
     }
   }
 );

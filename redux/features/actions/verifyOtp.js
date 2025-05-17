@@ -1,12 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "/api/proxy/";
-
 export const verifyOtp = createAsyncThunk(
   "user/verifyOtp",
   async ({ email, otp }, thunkApi) => {
     try {
-      const res = await fetch(`${BASE_URL}auth/verify-otp`, {
+      const res = await fetch("api/auth/verify-otp", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
