@@ -8,6 +8,9 @@ Pull requests are welcome. After pulling that repo need to install Node Modules 
 
 ```bash
 npm install
+
+# run project in development server
+npm run dev
 ```
 
 ## Third Party Library Used
@@ -23,4 +26,12 @@ npm install
 ## Functionality
 
 - User Login, Registration,Forgot password, Set new password by sending otp to mail.
-- Admin Login, Dashboard, Edit Admin Profile
+
+## Rendering Implementation
+
+- All the GET request will be in server component which is good for SEO and make website fast.
+- All the POST request are in client component as they have user interactions
+
+## Global State Management
+
+- Redux with thunk for global state management and HTTP post requests
