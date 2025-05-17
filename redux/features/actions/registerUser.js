@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-const BASE_URL = "http://51.20.49.136:5000/v1/";
+const BASE_URL = "/api/proxy/";
 
 export const registerUser = createAsyncThunk(
   "user/register",
